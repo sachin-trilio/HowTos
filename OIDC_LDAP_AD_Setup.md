@@ -47,7 +47,7 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
   
   ![image](https://user-images.githubusercontent.com/39940531/151801100-7cea3532-258d-47ff-afe2-8ce4509b9745.png)
 
-6. Now, follow https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
+6. Follow https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
   - Prepare a secret YAML file with the name triliovault-dexwith all the required details of the authentication provider. Refer to the format below and update the required values as needed
   ```
   apiVersion: v1
@@ -73,7 +73,7 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
   kubectl apply -f triliovault-dex.yaml
   ```
   
-  7. Now create a cluster role binding using the below command:  Replace the username to your Google email ID and clusterrolebinding name since it has to be unique
+  7. Create a cluster role binding using the below command:  Replace the username to your Google email ID and clusterrolebinding name since it has to be unique
 
   ```
   kubectl create clusterrolebinding admin-binding-1 --clusterrole=cluster-admin --user=<Google ID>
@@ -141,7 +141,7 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
     kubectl apply -f triliovault-dex-azure.yaml
   ```
   
-8. Now create a cluster role binding using the below command:  Replace the username with MS email ID and clusterrolebinding name since it has to be unique
+8. Create a cluster role binding using the below command:  Replace the username with MS email ID and clusterrolebinding name since it has to be unique
   
   ```
     kubectl create clusterrolebinding admin-binding-az --clusterrole=cluster-admin --user=<MS Email id>
