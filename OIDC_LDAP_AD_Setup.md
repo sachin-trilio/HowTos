@@ -85,7 +85,7 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
  
 9. Continue to login using the google id
   
-## Steps to configure the Dex login for TVK UI using Azure OAuth AD/LDAP
+## Steps to configure the Dex login for TVK UI using Azure OAuth
   
 1. Register new application – Go to Home -> App registrations -> Register an application (https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
   
@@ -109,7 +109,7 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
 
 6. Configure TVK Management Console access over HTTPS referring to https://docs.trilio.io/kubernetes/management-console/user-interface/accessing-the-ui#access-over-https
 
-7. Configure Azure AD/LDAP Authentication following https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
+7. Configure Azure Authentication following https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
 
   - Prepare a secret YAML file with the name triliovault-dexwith all the required details of the authentication provider. Refer to the format below and update the required values as needed
   
@@ -153,3 +153,73 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
 
 10.	Continue to login using the MS Email ID
 
+## Steps to configure the Dex login for TVK UI using LDAP
+
+1. Pre-requisite - LDAP server deployed and configured
+
+2. Retrieve below details from LDAP server
+  - LDAP server host IP or FQDN e.g. ldap.tvkdemo.org
+  - DNS domain name e.g. tvkdemo.org
+  - bindDN: "cn=<username>,dc=tvkdemo,dc=org"
+  - bindPW: <password>
+
+3. Configure LDAP Authentication following https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
+
+  - Prepare a secret YAML file with the name triliovault-dex with all the required details of the authentication provider. Refer to the format below and update the required values as needed
+  
+  ```
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: triliovault-dex
+    labels:
+      triliovault.trilio.io/secret: triliovault-dex
+  type: Opaque
+  stringData:
+    TVK_LDAP_AUTH: |-
+      enabled: true
+      type: ldap
+      id: ldap
+      name: "LDAP"
+      config:
+        host: <HOST IP or FQDN>
+        startTLS: false
+        insecureNoSSL: true
+        insecureSkipVerify: true
+        bindDN: "cn=<username>,dc=tvkdemo,dc=org"
+        bindPW: <password>
+        usernamePrompt: "Username"
+        userSearch:
+          baseDN: "dc=tvkdemo,dc=org"
+          filter: ""
+          username: cn
+          idAttr: cn
+          emailAttr: cn
+          nameAttr: cn
+        groupSearch:
+          baseDN: "dc=tvkdemo,dc=org"
+          filter: ""
+          userAttr: cn
+  ```
+  
+  - Apply this secret.yaml in the namespace of the k8s cluster where TVK is installed and this will lead to the creation of the TVK dex deployment which will reflect changes on TVK web UI, where you can find another way of login
+  
+  ```
+    kubectl apply -f triliovault-dex-ldap.yaml
+  ```
+  
+4. Create a cluster role binding using the below command:  Replace the username with LDAP user ID and clusterrolebinding name since it has to be unique
+  
+  ```
+    kubectl create clusterrolebinding admin-binding-ldap --clusterrole=cluster-admin --user=<LDAP User id>
+  ```
+  
+5. Check the TVK UI Login page. It should provide “Sign-in via LDAP” option
+    
+  ![image](https://user-images.githubusercontent.com/39940531/152344973-5e072801-1851-47db-bbd4-76ef25c2351b.png)
+
+6. Click on “Sign-in via LDAP” and it will prompt for Username and Password
+  
+  ![image](https://user-images.githubusercontent.com/39940531/152345100-6693f6e2-0663-4ac3-9080-745a54e07e6b.png)
+
+7.	Continue to login using LDAP username and password
