@@ -160,8 +160,8 @@ TVK supports authentication via KubeConfig files and via Dex an IDP plugin for o
 2. Retrieve below details from LDAP server
   - LDAP server host IP or FQDN e.g. ldap.tvkdemo.org
   - DNS domain name e.g. tvkdemo.org
-  - bindDN: "cn=<username>,dc=tvkdemo,dc=org"
-  - bindPW: <password>
+  - bindDN: "cn=username,dc=tvkdemo,dc=org"
+  - bindPW: password
 
 3. Configure LDAP Authentication following https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication/oidc-ldap-and-openshift-authentication#configuration
 
