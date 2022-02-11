@@ -8,6 +8,7 @@ On the **Cluster Management** (Home) page, users can add and navigate clusters. 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. The **Cluster Management** (Home) tab is displayed by default, which displays a list of TV-enabled clusters.
 ![image](https://github.com/[sachin-trilio]/[HowTos]/blob/[media]/MCM-image-1.png?raw=true)
+![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png)
 3. Click **New Cluster** to add a new clusters.
 4. Provide the requested details, like **Name**, **URL**, and **Distribution Type**. 
 5. The new cluster can be authenticated using kubeconfig or LDAP/OIDC authentication. As shown below, the configured authentication method will be displayed, e.g. 
