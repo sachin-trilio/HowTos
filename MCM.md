@@ -7,19 +7,17 @@ On the **Cluster Management** (Home) page, users can add and navigate clusters. 
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. The **Cluster Management** (Home) tab is displayed by default, which displays a list of TV-enabled clusters.
-![image](https://github.com/[sachin-trilio]/[HowTos]/blob/[media]/MCM-image-1.png?raw=true)
 ![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png)
-3. Click **New Cluster** to add a new clusters.
-4. Provide the requested details, like **Name**, **URL**, and **Distribution Type**. 
-5. The new cluster can be authenticated using kubeconfig or LDAP/OIDC authentication. As shown below, the configured authentication method will be displayed, e.g. 
-   - Name: democluster1
-   - URL: https://default.k8s-tvk.com/login
-   - Distribution Type: GKE
- 
-   ![image](https://user-images.githubusercontent.com/39940531/152997613-f0a0e9df-640f-4a7b-9e70-1275d20bba36.png)
-
-6. Continue to sign-in via LDAP.
-![image](https://user-images.githubusercontent.com/39940531/152997641-44e81e1b-c298-4104-81a9-7edc0f71acf6.png)
+3. Click **New Cluster** to add a new cluster.
+4. Provide the requested details, like **Name**, **URL**, and **Distribution Type**. For example:
+   1. Name: democluster1
+   2. URL: https://default.k8s-tvk.com/login
+   3. Distribution Type: GKE
+      ![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-2.png)
+5. The new cluster can be authenticated using Kubeconfig or LDAP/OIDC authentication. 
+   1. For Kubecobnfig, click on this field to browse your local system to select a previously configured Kubeconfig file.
+   2. To sign-in via LDAP, first make sure that the LDAP option is displayed. If it is, click **Sign-in via LDAP** and then sign in with your LDAP username and password and click **Login**.
+      ![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-3.png)
 7. Following successful sign-in, a message displays confirming that the cluster has been added.
 ![image](https://user-images.githubusercontent.com/39940531/152997672-5d094647-7cf3-4065-8fac-d21c77e011d0.png)
 8. Check that the new cluster (_democluster1_) is now listed on the UI.
