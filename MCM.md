@@ -7,14 +7,14 @@ On the **Cluster Management** (Home) page, users can add and navigate clusters. 
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. The **Cluster Management** (Home) tab is displayed by default, which displays a list of TV-enabled clusters.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png" width="800"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png" width="1000"/>
 3. Click **New Cluster** to add a new cluster.
 4. Provide the requested details, like **Name**, **URL**, and **Distribution Type**. For example:
    1. Name: democluster1
    2. URL: https://default.k8s-tvk.com/login
    3. Distribution Type: GKE
       
-      <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-2.png" width="500"/>
+      <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-2.png" width="700"/>
 5. Authenticate the new cluster using Kubeconfig or LDAP/OIDC authentication. 
    1. For Kubecobnfig, click on this field to browse your local system to select a previously configured Kubeconfig file. Then click **Add**.
    2. To sign-in via LDAP, first make sure that the LDAP option is displayed. If it is, click **Sign-in via LDAP** and then sign in with your LDAP username and password and click **Login**.
