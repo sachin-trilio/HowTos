@@ -7,28 +7,28 @@ On the **Cluster Management** (Home) page, users can add and navigate clusters. 
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. The **Cluster Management** (Home) tab is displayed by default, which displays a list of TV-enabled clusters.
-![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png)
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png" width="800"/>
 3. Click **New Cluster** to add a new cluster.
 4. Provide the requested details, like **Name**, **URL**, and **Distribution Type**. For example:
    1. Name: democluster1
    2. URL: https://default.k8s-tvk.com/login
    3. Distribution Type: GKE
-      ![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-2.png)
-5. The new cluster can be authenticated using Kubeconfig or LDAP/OIDC authentication. 
-   1. For Kubecobnfig, click on this field to browse your local system to select a previously configured Kubeconfig file.
+      
+      <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-2.png" width="500"/>
+5. Authenticate the new cluster using Kubeconfig or LDAP/OIDC authentication. 
+   1. For Kubecobnfig, click on this field to browse your local system to select a previously configured Kubeconfig file. Then click **Add**.
    2. To sign-in via LDAP, first make sure that the LDAP option is displayed. If it is, click **Sign-in via LDAP** and then sign in with your LDAP username and password and click **Login**.
-      ![image](https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-3.png)
-7. Following successful sign-in, a message displays confirming that the cluster has been added.
-![image](https://user-images.githubusercontent.com/39940531/152997672-5d094647-7cf3-4065-8fac-d21c77e011d0.png)
-8. Check that the new cluster (_democluster1_) is now listed on the UI.
-![image](https://user-images.githubusercontent.com/39940531/152997698-d801455f-b074-4314-a3b5-ac042a60d3d6.png)
+      
+      <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-3.png" width="400"/>
+7. Following successful sign-in, a green banner displays on your screen with the confirmation **Cluster Added**.
+8. On the **Cluster Management** (Home) tab, check that the new cluster (_democluster1_) is now added to the **CLUSTERS** list the UI.
+9. Click your new cluster to use it for further operations.
 
 ## Adding Another Cluster
-1. To add another cluster, repeat steps 1-5 from the previous section (Adding a New Cluster).
-2. Continue to sign-in via Google (OIDC).
-![image](https://user-images.githubusercontent.com/39940531/152997863-8e293023-d794-4e02-ba1a-c20964dcf00b.png)
-3. Following successful sign-in, a message displays confirming that the cluster has been added.
-![image](https://user-images.githubusercontent.com/39940531/152997884-c8ae844c-e61f-42f9-ba9b-12bc43e64be0.png)
-4. Check that the new cluster (_democluster2_) is now listed on the UI.
-5. From the **Cluster Management** (Home) page, click your new cluster name to use it for further operations.
-![image](https://user-images.githubusercontent.com/39940531/152998410-dbe457e2-610b-4e2e-8dae-d11f949d823d.png)
+1. To add another cluster, repeat steps 1-4 from the previous section (Adding a New Cluster).
+2. Click **Sign-in via Google** (OIDC).
+3. On the login screen displayed, select the Google account that you wish to sign in with. If you are not already logged in to your Google account, you will be prompted to sign in with your Google username and password.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-4.png" width="400"/>
+4. Following successful sign-in, a green banner displays on your screen with the confirmation **Cluster Added**.
+5. On the **Cluster Management** (Home) tab, check that the new cluster (_democluster1_) is now added to the **CLUSTERS** list the UI.
+6. Click your new cluster to use it for further operations.
