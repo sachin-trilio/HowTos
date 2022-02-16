@@ -4,7 +4,6 @@ TrilioVault for Kubernetes ships with a user interface that simplifies managemen
 On the **Cluster Management** (Home) page, users can add and navigate clusters. TVK supports authentication via KubeConfig files and via Dex, which is an identity service IDP plugin for other identity providers. Below is the step-by-step guide to add clusters using LDAP and OIDC (Google SSO) authentications. Refer to documentation [here](https://docs.trilio.io/kubernetes/management-console/user-interface/ui-authentication) for other authentication methods.
 
 ## Adding a New Cluster
-
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. The **Cluster Management** (Home) tab is displayed by default, which displays a list of TV-enabled clusters.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/MCM-image-1.png" width="1200"/>
