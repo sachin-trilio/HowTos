@@ -57,11 +57,11 @@ Lets take a look at how to migrate storage class used for the PVC in the backed 
    ```
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-8.png" width="1200"/> 
 10. This gets back to **ADD TRANSFORM COMPONENT** page. The details of the transform component is displayed. Click on **Add**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-9.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-9.png" width="1200"/>
 11. This gets back to **RESTORE BACKUP** page **Advanced** tab. The details of the transform component is displayed. Click on **Save**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-10.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-10.png" width="1200"/>
 12. This page shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-11.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/sc-migration/sc-migration-11.png" width="1200"/>
 13. This completes the restore with replacing the storageclass of the PVC with new storageclass on a different cluster. 
 
 ## Storage Class migration while restoring a backup to same cluster
