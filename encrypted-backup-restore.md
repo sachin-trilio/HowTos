@@ -29,23 +29,23 @@ TrilioVault for Kubernetes provides the capability to encrypt backups. Encryptio
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. Click on **Backup & Recovery** tab. It displays the primary cluster and a list of namespaces.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption1.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption1.png" width="1200"/>
 3. To create a backup, select a namespace from the list and click on **Actions** -> **Create Backup**
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption2.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption2.png" width="1200"/>
 4. In the **CREATE NEW BACKUP** wizard, a list of Backup Plans are displayed. If there are no pre-existing Backup Plans, click on **Create New** 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption3.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption3.png" width="1200"/>
 5. This will lead to **CREATE NEW BACKUPPLAN** wizard. Provide mandatory parameters like Name, Target. To enable encrypion, select _Encryption Secret_ as created in the pre-requisite above. Provide optional parameters such as Scheduling policy, Retention policy and click on **Next**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption4.png" width="1200"/>  
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption4.png" width="1200"/>  
 6. On this page, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption5.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption5.png" width="1200"/>
 7. This will take you back to **CREATE BACKUP** wizard. The newly created Backupplan is listed here. It takes some time for the backupplan to become active. Once it is active, select the backupplan. It provides the details of the backupplan upon expanion. Click **Continue**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption6.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption6.png" width="1200"/>
 8. Provide the name of the Backup and click **Create Backup**.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption7.png" width="1200"/>  
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption7.png" width="1200"/>  
 9. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption8.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption8.png" width="1200"/>
     
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption9.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption9.png" width="1200"/>
     
 10. This completes the creation of encrypted backup.
 
@@ -54,13 +54,13 @@ TrilioVault for Kubernetes provides the capability to encrypt backups. Encryptio
 Lets take a look at how to restore the encrypted backup. The backup can be restored to different namespace on the same cluster or a different cluster.
 
 1. Navigate to **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption10.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption10.png" width="1200"/>
 2. This shows **MONITORING** page where backup and restore details are provided. To restore, select a backup and click **Restore**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption11.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption11.png" width="1200"/>
 3. This shows **RESTORE BACKUP**. Provide a name for the restore. An _Encryption Secret_ is auto-selected. Select the "Restore Flags". Click **Next**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption12.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption12.png" width="1200"/>
 4. On this page **Advanced** tab provides options for "Tranform Components", "Exclude Resources" and "Hook Configuration". These are not selected in this example. Click **Save** to proceed.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption13.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption13.png" width="1200"/>
 9. This shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption14.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/EnryptionBackup/encryption14.png" width="1200"/>
 10. This completes the restore of the encrypted backup.
