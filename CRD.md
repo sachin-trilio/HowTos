@@ -19,7 +19,7 @@ The Backup Target CRD specifies the backup storage media. TrilioVault supports e
    EOF
    ```
 2. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
-3. Click on **Backup & Recovery** tab and click on **Targets**. It displays a list if existing targets. Click on **Create New**.
+3. Go to **Backup & Recovery** tab and click on **Targets**. It displays a list if existing targets. Click on **Create New**.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-1.png" width="1200"/>
 4. On **CREATE TARGET** page, provide below details 
    - Namespace 
@@ -59,7 +59,7 @@ A scheduling policy can be created to automate the capture of applications withi
 
 ### Steps to create Scheduling Policy
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
-2. Click on **Backup & Recovery** tab and click on **Policies**. By default, it displays **Scheduling Policies** tab with a list of pre-defined and user created scheduling policies. Click on **Create New**.
+2. Go to **Backup & Recovery** tab and click on **Policies**. By default, it displays **Scheduling Policies** tab with a list of pre-defined and user created scheduling policies. Click on **Create New**.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/Policies/policies-1.png" width="1200"/>
 3. On **CREATE SCHEDULING POLICY** page, provide below details 
    - Namespace 
@@ -83,7 +83,7 @@ The retention policy enables users to define the number of backups to retain and
 
 ### Steps to create Scheduling Policy
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
-2. Click on **Backup & Recovery** tab and click on **Policies**. Click on **Retention Policies** tab. It displays a list of pre-defined and user created retention policies. Click on **Create New**.
+2. Go to **Backup & Recovery** tab and click on **Policies**. Click on **Retention Policies** tab. It displays a list of pre-defined and user created retention policies. Click on **Create New**.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/Policies/policies-5.png" width="1200"/>
 3. On **CREATE RETENTION POLICY** page, provide below details 
    - Namespace 
@@ -103,12 +103,12 @@ The retention policy enables users to define the number of backups to retain and
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/Policies/policies-7.png" width="1200"/>
 
 ## Hooks
-Hooks enable injecting commands into pods/containers before and after a backup via pre/post commands. Hooks enable taking application consistent backups and extending backup workflows.
+Hooks enable injecting commands into pods/containers before and after a backup via pre/post commands. Hooks enable taking application consistent backups and extending backup workflows. Hooks enable users to run application specific commands while performing a backup/restore. Quiescing and Unquiescing commands can be run to take application consistent backups/restore.
 Note: Hook should be created in the same namespace as that of BackupPlan referencing it resides.
 
 ### Steps to create hooks
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
-2. Click on **Hooks**. It displays a list of existing hooks. Click on **Create New**.
+2. Go to **Backup & Recovery** tab and click on **Hooks**. It displays a list of existing hooks. Click on **Create New**.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/hooks/hooks-1.png" width="1200"/>
 3. On **CREATE HOOK** page, provide below details 
    - Namespace 
@@ -137,8 +137,74 @@ Note: Hook should be created in the same namespace as that of BackupPlan referen
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/hooks/hooks-5.png" width="1200"/>
    
 ## Backup Plan
+The BackupPlan CRD specifies the backup job. The specification includes the backup schedule, backup target and the resources to backup. TrilioVault supports three types of resources to backup and an BackupPlan CR may include combination of these resources.
+This BackupPlan CR defines a set of resources to backup. Resources can be defined in the form of Helm release, Operators or just bare k8s api resources.
+TrilioVault supports backup of the following:
+- Helm releases
+- Operator-based application instances
+- Label-based selection of resources
+- Namespaces
 
 ### Backup Plan - Namespace
+
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. It displays a list of existing Backupplans. Click on **Create New** and select **Single-namespace** to create a namespace based Backupplan.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-1.png" width="1200"/>
+3. This leads to **CREATE NEW BACKUPPLAN** wizard. In **Step 1: Configuration** tab, provide folliwing details.
+   - Namespace - select the namespace from the drop-down list
+   - Name - Provide Backupplan name
+   - Target - Select a Backup Target from the drop-dwon list
+   - Encryption Secret (Optional) - select to enable encryption for the backup
+   - HOOK CONFIGURATION (Hooks enable users to run application specific commands while performing a backup/restore. Quiescing and Unquiescing commands can be run to take application consistent backups/restore. Hooks are optional and multiple Hooks can be defined per backupplan.)
+     - Add hook (Optional - if selected, continue. Else, proceed to next step)
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-2.png" width="1200"/>
+
+   - This leads to **ADD HOOK** wizard. Provide below details
+     - Hook - Select hook from a drop-down list
+     - POD SELECTOR (Provide one of the below to select a pod for executing the hook commands)
+       - Label Set
+       - Regex
+     - CONTAINER REGEX
+       - Regex
+    Click on **Add**
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-3.png" width="1200"/>
+
+   - This leads back to **HOOK CONFIGURAION** wizard. Provide below details
+     - Quiescing Mode - Sequential / Parallel
+     - Pod Ready Wait (sec)
+     - HOOKS - lists down hook selected above
+ 
+    User can add more hooks. 
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-4.png" width="1200"/>
+
+4. Scroll down to **SCHEDULING POLICY** part. This is optional. Scheduling policy allows users to specify two schedules, one for Full Backup and another for incremental backup.
+Every full backup starts a new backup chain. Provide provide folliwing details.
+   - Full Backup - Select a policy from a drop-down list
+   - Incremental Backup - Select a policy from a drop-down list
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5a.png" width="1200"/>  
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5.png" width="1200"/>  
+   
+   If selected policy is from a different namespace, it displays a warning that a copy of the policy will be created in the current namespace. Click **Continue**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-6.png" width="1200"/>
+   
+6. On this page, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption5.png" width="1200"/>
+7. This will take you back to **CREATE BACKUP** wizard. The newly created Backupplan is listed here. It takes some time for the backupplan to become active. Once it is active, select the backupplan. It provides the details of the backupplan upon expanion. Click **Continue**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption6.png" width="1200"/>
+8. Provide the name of the Backup and click **Create Backup**.
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption7.png" width="1200"/>  
+9. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption8.png" width="1200"/>
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption9.png" width="1200"/>
+    
+10. This completes the creation of encrypted backup.
 
 ### Backup Plan - Application (Label/Helm/Operator together)
 
