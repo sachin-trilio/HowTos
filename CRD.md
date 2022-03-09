@@ -193,18 +193,16 @@ Every full backup starts a new backup chain. Provide provide folliwing details.
    
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-6.png" width="1200"/>
    
-6. On this page, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption5.png" width="1200"/>
-7. This will take you back to **CREATE BACKUP** wizard. The newly created Backupplan is listed here. It takes some time for the backupplan to become active. Once it is active, select the backupplan. It provides the details of the backupplan upon expanion. Click **Continue**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption6.png" width="1200"/>
-8. Provide the name of the Backup and click **Create Backup**.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption7.png" width="1200"/>  
-9. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption8.png" width="1200"/>
-    
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption9.png" width="1200"/>
-    
-10. This completes the creation of encrypted backup.
+5. Scroll down to **Retention Policy** part. This is optional. Retention policy allows the user to specify interval wise number of backups to retain. User can specify multiple intervals. Select a policy from a drop-down list. Click **Next**.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-7.png" width="1200"/>  
+   
+6. On this page **Step 2:Resource Selector**, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-8.png" width="1200"/>
+7. This shows the confirmation that Backup Plan is created.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-9.png" width="1200"/>
+8. The newly created Backup Plan takes few seconds to become _Available_. Once it is in _Available_ state, user can proceed with Backups.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-10.png" width="1200"/>
 
 ### Backup Plan - Application (Label/Helm/Operator together)
 
