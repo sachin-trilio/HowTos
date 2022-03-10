@@ -206,6 +206,73 @@ Every full backup starts a new backup chain. Provide provide folliwing details.
 
 ### Backup Plan - Application (Label/Helm/Operator together)
 
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. It displays a list of existing Backupplans. Click on **Create New** and select **Application** to create an application based Backupplan.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-1.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-2.png" width="1200"/>
+   
+3. This leads to **CREATE NEW BACKUPPLAN** wizard. In **Step 1: Configuration** tab, provide folliwing details.
+   - Namespace - select the namespace from the drop-down list
+   - Name - Provide Backupplan name
+   - Target - Select a Backup Target from the drop-dwon list
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-3.png" width="1200"/>
+   
+   If selected target is from a different namespace, it displays a warning that a copy of the target will be created in the current namespace. Click **Continue**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-4.png" width="1200"/>
+
+   - Encryption Secret (Optional) - select to enable encryption for the backup
+   - HOOK CONFIGURATION (Hooks enable users to run application specific commands while performing a backup/restore. Quiescing and Unquiescing commands can be run to take application consistent backups/restore. Hooks are optional and multiple Hooks can be defined per backupplan.)
+     - Add hook (Optional - if selected, continue. Else, proceed to next step)
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-5.png" width="1200"/>
+
+   - This leads to **ADD HOOK** wizard. Provide below details
+     - Hook - Select hook from a drop-down list
+     - POD SELECTOR (Provide one of the below to select a pod for executing the hook commands)
+       - Label Set
+       - Regex
+     - CONTAINER REGEX
+       - Regex
+    Click on **Add**
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-3.png" width="1200"/>
+
+   - This leads back to **HOOK CONFIGURAION** wizard. Provide below details
+     - Quiescing Mode - Sequential / Parallel
+     - Pod Ready Wait (sec)
+     - HOOKS - lists down hook selected above
+ 
+    User can add more hooks. 
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-4.png" width="1200"/>
+
+4. Scroll down to **SCHEDULING POLICY** part. This is optional. Scheduling policy allows users to specify two schedules, one for Full Backup and another for incremental backup.
+Every full backup starts a new backup chain. Provide provide folliwing details.
+   - Full Backup - Select a policy from a drop-down list
+   - Incremental Backup - Select a policy from a drop-down list
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5a.png" width="1200"/>  
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5.png" width="1200"/>  
+   
+   If selected policy is from a different namespace, it displays a warning that a copy of the policy will be created in the current namespace. Click **Continue**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-6.png" width="1200"/>
+   
+5. Scroll down to **Retention Policy** part. This is optional. Retention policy allows the user to specify interval wise number of backups to retain. User can specify multiple intervals. Select a policy from a drop-down list. Click **Next**.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-7.png" width="1200"/>  
+   
+6. On this page **Step 2:Resource Selector**, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-8.png" width="1200"/>
+7. This shows the confirmation that Backup Plan is created.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-9.png" width="1200"/>
+8. The newly created Backup Plan takes few seconds to become _Available_. Once it is in _Available_ state, user can proceed with Backups.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-10.png" width="1200"/>
+   
 ## Backup
 
 ### Backup - Namespace
