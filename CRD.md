@@ -338,47 +338,51 @@ Every full backup starts a new backup chain. Provide provide folliwing details.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-26.png" width="1200"/>
    
 ## Backup
+The Backup CRD takes a backup of the resources specified in the BackupPlan spec. It takes either a Full backup or Incremental Backup. The first backup of the Application will always be a Full backup even if the user specifies their backup type as Incremental.
+Note: BackupPlan and Backup CR should be created in same namespace.
+Incremental backup includes all the YAML files and delta changes to PV data. Incremental backups are not complete by themselves and relies on all the previous incremental backup and the full backup.
 
 ### Backup - Namespace
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. It displays a list of existing Backupplans. For creating namespace Backup, select a namespace based Backup Plan and click on **Actions** -> **Create Backup**
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-ns/backup-1.png" width="1200"/>
+3. In the **CREATE NEW BACKUP** wizard, selected Backup Plan is listed. The details can be checked by expanding it. Provide the name of the Backup and click **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-ns/backup-2.png" width="1200"/>  
+4. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-ns/backup-3.png" width="1200"/>
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-ns/backup-4.png" width="1200"/>
+    
+5. This completes the creation of namespace based backup.
 
 ### Backup - Application (Label/Helm/Operator together)
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. It displays a list of existing Backupplans. For creating application Backup, select an application based Backup Plan and click on **Actions** -> **Create Backup**
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-app/backup-1.png" width="1200"/>
+3. In the **CREATE NEW BACKUP** wizard, selected Backup Plan is listed. The details can be checked by expanding it. Provide the name of the Backup and click **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-app/backup-2.png" width="1200"/>  
+4. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-app/backup-3.png" width="1200"/>
+    
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backup-app/backup-4.png" width="1200"/>
+    
+5. This completes the creation of application based backup.
 
 ## Restore
 
+Lets take a look at how to restore a backup. The backup can be restored to different namespace on the same cluster.
+
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
-2. Click on **Backup & Recovery** tab. It displays the primary cluster and a list of namespaces.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption1.png" width="1200"/>
-3. To create a backup, select a namespace from the list and click on **Actions** -> **Create Backup**
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption2.png" width="1200"/>
-4. In the **CREATE NEW BACKUP** wizard, a list of Backup Plans are displayed. If there are no pre-existing Backup Plans, click on **Create New** 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption3.png" width="1200"/>
-5. This will lead to **CREATE NEW BACKUPPLAN** wizard. Provide mandatory parameters like Name, Target. To enable encrypion, select _Encryption Secret_ as created in the pre-requisite above. Provide optional parameters such as Scheduling policy, Retention policy and click on **Next**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption4.png" width="1200"/>  
-6. On this page, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption5.png" width="1200"/>
-7. This will take you back to **CREATE BACKUP** wizard. The newly created Backupplan is listed here. It takes some time for the backupplan to become active. Once it is active, select the backupplan. It provides the details of the backupplan upon expanion. Click **Continue**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption6.png" width="1200"/>
-8. Provide the name of the Backup and click **Create Backup**.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption7.png" width="1200"/>  
-9. This shows the confirmation that backup is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption8.png" width="1200"/>
-    
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption9.png" width="1200"/>
-    
-10. This completes the creation of encrypted backup.
-
-## Steps to restore the encrypted backup
-
-Lets take a look at how to restore the encrypted backup. The backup can be restored to different namespace on the same cluster or a different cluster.
-
-1. Navigate to **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption10.png" width="1200"/>
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-1.png" width="1200"/>
 2. This shows **MONITORING** page where backup and restore details are provided. To restore, select a backup and click **Restore**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption11.png" width="1200"/>
-3. This shows **RESTORE BACKUP**. Provide a name for the restore. An _Encryption Secret_ is auto-selected. Select the "Restore Flags". Click **Next**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption12.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-2.png" width="1200"/>
+3. This shows **RESTORE BACKUP**. Provide a name for the restore. Select a restore namespace from a drop-down list. Select the "Restore Flags". Click **Next**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-3.png" width="1200"/>
 4. On this page **Advanced** tab provides options for "Tranform Components", "Exclude Resources" and "Hook Configuration". These are not selected in this example. Click **Save** to proceed.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption13.png" width="1200"/>
-9. This shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption14.png" width="1200"/>
-10. This completes the restore of the encrypted backup.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-4.png" width="1200"/>
+5. This shows the confirmation that restore is started and **STATUS LOG** is displayed. 
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-5.png" width="1200"/>
+6. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/restore/restore-6.png" width="1200"/>
+7. This completes the restore of the backup.
