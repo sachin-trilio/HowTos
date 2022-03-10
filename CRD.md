@@ -236,9 +236,30 @@ Every full backup starts a new backup chain. Provide provide folliwing details.
        - Regex
      - CONTAINER REGEX
        - Regex
+    Click on **Add Label Set**
+    
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-6.png" width="1200"/>
+    
+   - This leads to **ADD LABEL SET** page.  By default, it displays **MatchLabels** tab.
+     - Match Label - Select a label from a drop-dwon list.
+   Click on **Apply**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-7.png" width="1200"/>
+   
+   This displays **ADDED LABLES**. More labels can be added by repeating above step. Once done, click **Add**.
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-8.png" width="1200"/>
+   
+   This leads back to **ADD HOOK** page. Provide other details if not done already.
+     - Hook - Select hook from a drop-down list
+     - POD SELECTOR (Provide one of the below to select a pod for executing the hook commands)
+       - Label Set
+       - Regex
+     - CONTAINER REGEX
+       - Regex
     Click on **Add**
     
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-3.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-9.png" width="1200"/> 
 
    - This leads back to **HOOK CONFIGURAION** wizard. Provide below details
      - Quiescing Mode - Sequential / Parallel
@@ -247,31 +268,74 @@ Every full backup starts a new backup chain. Provide provide folliwing details.
  
     User can add more hooks. 
     
-    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-4.png" width="1200"/>
+    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-10.png" width="1200"/>
 
 4. Scroll down to **SCHEDULING POLICY** part. This is optional. Scheduling policy allows users to specify two schedules, one for Full Backup and another for incremental backup.
 Every full backup starts a new backup chain. Provide provide folliwing details.
    - Full Backup - Select a policy from a drop-down list
    - Incremental Backup - Select a policy from a drop-down list
 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5a.png" width="1200"/>  
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-11.png" width="1200"/>  
 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-5.png" width="1200"/>  
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-12.png" width="1200"/>  
    
    If selected policy is from a different namespace, it displays a warning that a copy of the policy will be created in the current namespace. Click **Continue**
    
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-6.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-13.png" width="1200"/>
    
 5. Scroll down to **Retention Policy** part. This is optional. Retention policy allows the user to specify interval wise number of backups to retain. User can specify multiple intervals. Select a policy from a drop-down list. Click **Next**.
 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-7.png" width="1200"/>  
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-14.png" width="1200"/>  
    
-6. On this page **Step 2:Resource Selector**, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-8.png" width="1200"/>
-7. This shows the confirmation that Backup Plan is created.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-9.png" width="1200"/>
-8. The newly created Backup Plan takes few seconds to become _Available_. Once it is in _Available_ state, user can proceed with Backups.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-ns/backupplan-10.png" width="1200"/>
+6. On this page **Step 2:Component Details**, by default **Operator** tab is displayed. When TVK performs backup of an Operator based application, the Operator resources, custom resources, as well as the application resources are backed up. The UI pre-fills components for CRs/ORs/ARs and the user has the ability to edit and add/remove more items as they deem necessary.
+   Click on **Add Operator**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-15.png" width="1200"/>
+7. Enter **Operator Name or ID** and click **Apply**
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-16.png" width="1200"/>
+   
+   This shows a list of components that user can add/update. Once done, click **Create**
+   - Custom Resources
+   - Operator Resources
+   - Application Resources
+   - Excluded Resources
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-17.png" width="1200"/>
+
+8. This leads back to page **Step 2:Component Details**. Click on **Helm Release** tab and **Add Helm Release** to add a helm chart release in the Backup Plan.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-18.png" width="1200"/>
+   
+   Select a Helm Release from a drop-down list and click **Apply**.
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-19.png" width="1200"/>
+   
+   User can add more helm release by clicking **Add Another** and following above step. Once done, click **Create**.
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-20.png" width="1200"/>
+   
+9. This leads back to page **Step 2:Component Details**. Click on **Custom** tab. For **Included Resources**, click on **Add Resources** 
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-21.png" width="1200"/>
+   
+   This leads to **LABEL SET** page.  By default, it displays **MatchLabels** tab.
+     - Match Label - Select a label from a drop-dwon list.
+   Click on **Apply**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-22.png" width="1200"/>
+   
+   This displays **ADDED LABLES**. More labels can be added by repeating above step. Repeating similar steps, **Resources** can be added. Once done, click **Add**.
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-23.png" width="1200"/>
+   
+10. This leads back to page **Step 2:Component Details**. It displays added **Lable Sets** and **Resources** under **Included Resources**. Same way **Excluded Resources** can be added. Once done, click **Create**.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-24.png" width="1200"/>
+
+11. This shows the confirmation that Backup Plan is created.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-25.png" width="1200"/>
+12. The newly created Backup Plan takes few seconds to become _Available_. Once it is in _Available_ state, user can proceed with Backups.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/backupplan-app/backupplan-26.png" width="1200"/>
    
 ## Backup
 
