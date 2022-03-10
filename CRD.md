@@ -369,8 +369,7 @@ Incremental backup includes all the YAML files and delta changes to PV data. Inc
 5. This completes the creation of application based backup.
 
 ## Restore
-
-Lets take a look at how to restore a backup. The backup can be restored to different namespace on the same cluster.
+The Restore CRD specifies the backup that resources need to be restored from. Resources can be restored to the same namespace or a different namespace. If a backup target with existing backups are created to a different cluster, those backups can be restored to the cluster. A migration or disaster recovery use case can be implemented using this functionality.
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. Go to **Backup & Recovery** tab and click on **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
