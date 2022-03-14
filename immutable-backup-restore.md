@@ -1,8 +1,10 @@
-# Encrypting Backup and Restore
-TrilioVault for Kubernetes provides the capability to encrypt backups. Encryption of the backups provides protection from malicious users. TVK encrypts the backup data at the application level using an encryption key which can only be restored with the same encryption key. Encryption is enabled in the BackupPlan and different keys will be created for each backupPlan. Encryption keys are stored as Kubernetes secrets, and integration with Vault will be provided soon. Trilio leverages the LUKS encryption format to protect data. LUKS is extremely flexible and secure providing a range of cipher suites. 
+# Immutability
+TrilioVault for Kubernetes provides the ability to create immutable backups at the application level. Once the backup is taken and stored on an immutable target, it can not be altered (overwritten/deleted) until the retention period set through TVK is up. Trilio supports the creation of immutable backups on S3 devices that support object locking and versioning capabilities. Immutable backups once created can only be deleted via the Trilio retention process. Manual deletes from the TVK management console or from the target device itself will not remove the backup. In case of manual deletion from the TVK management console, the backup will be soft-deleted (only the backup reference will be removed from the cluster).
 
-## Pre-requisite - Create an encryption secret
-1. Create a base64 encrypted key.
+## Pre-requisite 
+
+### Create S3 bucket for immutable target
+
    ```
    echo -n "_Key text_" | base64
    ```
@@ -25,7 +27,12 @@ TrilioVault for Kubernetes provides the capability to encrypt backups. Encryptio
    EOF
    ```
 
-## Steps to create encrypted backup
+## Steps to create Immutable Target
+
+## Steps to create Scheduling and Retention Policies
+
+## Steps to create immutable backup
+After immutable target and retention policy are set, user needs to create a backup. Once the backup is taken and stored on an immutable target, it can not be altered (overwritten/deleted) until the retention period set through TVK is up. 
 
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. Click on **Backup & Recovery** tab. It displays the primary cluster and a list of namespaces.
@@ -49,7 +56,9 @@ TrilioVault for Kubernetes provides the capability to encrypt backups. Encryptio
     
 10. This completes the creation of encrypted backup.
 
-## Steps to restore the encrypted backup
+## Delete immutable bckup from TVK
+
+## Steps to restore the immutable backup
 
 Lets take a look at how to restore the encrypted backup. The backup can be restored to different namespace on the same cluster or a different cluster.
 
@@ -64,3 +73,5 @@ Lets take a look at how to restore the encrypted backup. The backup can be resto
 9. This shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption14.png" width="1200"/>
 10. This completes the restore of the encrypted backup.
+
+## How to recover backups if deleted from S3 bucket
