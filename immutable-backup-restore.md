@@ -65,38 +65,103 @@ In order for TrilioVault to support immutability the S3 bucket must have:
    ```
 2. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 3. Go to **Backup & Recovery** tab and click on **Targets**. It displays a list if existing targets. Click on **Create New**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-1.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-5.png" width="1200"/>
 4. On **CREATE TARGET** page, provide below details 
    - Namespace 
    - Threshold Capacity
    - Vendor Details
-   - Select NFS or ObejctStore. In this example, we selected ObjectStore
+   - Select ObejctStore
    - For ObjectStore
      - Vendor
      - BucketName
      - Region
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-6.png" width="1200"/>
+
      - URL
-     - Object Locking (Optional - used for immutable target)
+     - Object Locking - Enable to create immutable target)
      - Object store credentials
        - Select the Credential Secret created earlier from the list
      - Enable Browsing (optional - to enable target browsing)
 
    Once done, click on **Continue**
    
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-2.png" width="1200"/>
-   
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-3.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-7.png" width="1200"/>
    
 5. On this page, provide a name for the target and click **Create Target**. 
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-4.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-8.png" width="1200"/>
    
 6. This shows the confirmation that target is created and the list of targets is displayed. The initial status of the target is _InProgress_. It takes a while to become _Available_.
    
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-5.png" width="1200"/>
-7. Once the target becomes _Available_, target browsing can be enabled using the _Browsing_ toggle.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/target/crd-target-6.png" width="1200"/>
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-9.png" width="1200"/>
 
 ## Steps to create Scheduling and Retention Policies
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Policies**. By default, it displays **Scheduling Policies** tab with a list of pre-defined and user created scheduling policies. Click on **Create New**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-10.png" width="1200"/>
+3. On **CREATE SCHEDULING POLICY** page, provide below details 
+   - Namespace 
+   - Scheduling Policy Name
+   - Add Interval (user can add multiple intervals and if selected, multiple backups will be created as per the interval.) Click on one of the inervals.
+     - Hourly
+     - Daily
+     - Weekly
+     - Monthly
+     - Yearly
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-11.png" width="1200"/>
+   
+4. For the selected **Interval**, provide **Schedule Time**. User can add more schedules. Once done, click on **Create**
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-12.png" width="1200"/>
+5. This shows the confirmation that Scheduling Policy is created and the list of scheduling policies is displayed.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-13.png" width="1200"/>
+6. Click on **Retention Policies** tab. It displays a list of pre-defined and user created retention policies. Click on **Create New**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-14.png" width="1200"/>
+7. On **CREATE RETENTION POLICY** page, provide below details 
+   - Namespace 
+   - Retention Policy Name
+   - Add Interval (user can add multiple intervals) Click on add another.
+     - Latest - No. of backups
+     - Daily - Provide the time
+     - Weekly - Select a day of the week
+     - Monthly - Select a day of the month
+     - Yearly - Select a month of the year
+
+   User can add more intervals. Once done, click on **Create**
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-15.png" width="1200"/>
+   
+8. This shows the confirmation that Retention Policy is created and the list of retention policies is displayed.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-16.png" width="1200"/>
+
+## Steps to create immutable backup plan
+After immutable target and retention policy are set, user needs to create a backupPlan. When an Immutable target is created and used within a backupPlan, a scheduling policy and a retention policy will be required for the backupPlan. TrilioVault validates that the default retention on the bucket and the retention specified by the user are in alignment. If not, Triliovault will fail the creation of the backupPlan with appropriate error messages.
+
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Go to **Backup & Recovery** tab and click on **Backupplans**. It displays a list of existing Backupplans. Click on **Create New** and select **Single-namespace** to create a namespace based Backupplan.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-17.png" width="1200"/>
+3. This leads to **CREATE NEW BACKUPPLAN** wizard. In **Step 1: Configuration** tab, provide folliwing details.
+   - Namespace - select the namespace from the drop-down list
+   - Name - Provide Backupplan name
+   - Target - Select Immutable Backup Target from the drop-dwon list
+   - Encryption Secret (Optional) - select to enable encryption for the backup
+   - HOOK CONFIGURATION (Optional)
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-18.png" width="1200"/>
+
+4. Scroll down to **SCHEDULING POLICY** part. This is needed for immutable backuPlan. Scheduling policy allows users to specify two schedules, one for Full Backup and another for incremental backup.
+Every full backup starts a new backup chain. Provide provide folliwing details.
+   - Full Backup - Select a policy from a drop-down list
+   - Incremental Backup - Select a policy from a drop-down list
+
+   Scroll down to **Retention Policy** part. This is needed for immutable backupPlan. Retention policy allows the user to specify interval wise number of backups to retain. User can specify multiple intervals. Select a policy from a drop-down list. Click **Next**.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-19.png" width="1200"/>  
+   
+5. On this page **Step 2:Resource Selector**, options are listed for Resource Selection - Included Resources and Excluded Resources. In this example, these are not used. Click on **Create**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-20.png" width="1200"/>
+6. This shows the confirmation that Backup Plan is created. The newly created Backup Plan takes few seconds to become _Available_. Once it is in _Available_ state, user can proceed with Backups.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-backup-21.png" width="1200"/>
 
 ## Steps to create immutable backup
 TrilioVault for Kubernetes provides the ability to create immutable backups at the application level. Once the backup is taken and stored on an immutable target, it can not be altered (overwritten/deleted) until the retention period set through TVK is up.
