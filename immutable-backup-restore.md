@@ -179,24 +179,77 @@ After immutable target and retention policy are set and backuipPlan is created, 
     
 5. This completes the creation of immutable backup.
 
-## Delete immutable bckup from TVK
+## Delete immutable backup from TVK
 Immutable backups once created can only be deleted via the Trilio retention process. Manual deletes from the TVK management console or from the target device itself will not remove the backup. In case of manual deletion from the TVK management console, the backup will be soft-deleted (only the backup reference will be removed from the cluster).
 
+Lets take  look at how to delete a backup from the TVK management console.
+
+1. Navigate to **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-1.png" width="1200"/>
+2. This shows **MONITORING** page where backup and restore details are provided. Click on the **...*** at the right hand corner.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-2.png" width="1200"/>
+3. This shows **view YAML** option. Click it.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-3.png" width="1200"/>
+4. This leads to TVK Resource YAML page. In the **Backup** YAML, find the field **location**. Note this down as it indicates the location of the backup inside the S3 bucket. Once done, click **Close**. 
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-4.png" width="1200"/>
+5. This brings back the **MONITORING** page. Click on **Delete** to delete the backup. It asks for a confirmation. Click **Yes**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-5.png" width="1200"/>
+6. This shows the confirmation that the backup is deleted.   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-6.png" width="1200"/>
+7. Now, navigate back to **Amazon S3 - Buckets**. Click on the immutable bucket.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-7.png" width="1200"/>
+8. Navigate to the objects inside the bucket and find the **location** of the backup. Go inside the folder to check if the backup taken is still available in the Amazon S3 bucket.   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-8.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-9.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-delete-10.png" width="1200"/>  
+9. This indicates that deleting the backup from the TVK management console actualy performs a soft-delete. The entry of the backup is deleted from the TVK management console. However, the backup objects are still available in the S3 bucket.
 
 ## Steps to restore the immutable backup
 
-Lets take a look at how to restore the encrypted backup. The backup can be restored to different namespace on the same cluster or a different cluster.
+Lets take a look at how to restore the immutable backup. The backup can be restored to different namespace on the same cluster or a different cluster.
 
-1. Navigate to **Backupplans**. This displays a list of backupplans. Select the backupplan for restore and click **Actions** -> **Backup & Restore Summary**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption10.png" width="1200"/>
-2. This shows **MONITORING** page where backup and restore details are provided. To restore, select a backup and click **Restore**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption11.png" width="1200"/>
-3. This shows **RESTORE BACKUP**. Provide a name for the restore. An _Encryption Secret_ is auto-selected. Select the "Restore Flags". Click **Next**.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption12.png" width="1200"/>
-4. On this page **Advanced** tab provides options for "Tranform Components", "Exclude Resources" and "Hook Configuration". These are not selected in this example. Click **Save** to proceed.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption13.png" width="1200"/>
-9. This shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
-   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/encryption14.png" width="1200"/>
-10. This completes the restore of the encrypted backup.
+1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
+2. Click on **Backup & Recovery** tab and select **Targets**. It displays the list of targets configured on the cluster.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-1.png" width="1200"/>
+3. Select the immutable **Target** where the immutable backup was taken. Please note that **Browsing** must be enabled for the Target. Click on **Actions** for the selected target and click on **Launch Browser**. 
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-2.png" width="1200"/>
+4. This opens the **Target Browser** and shows a list of BackupPlans. 
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-3.png" width="1200"/>
+5. Select the appropriate BackupPlan, in this case the immutable backupPlan created earlier. It provides the details of the immutable backup. To restore, click **Restore**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-4.png" width="1200"/>
+6. This shows **RESTORE BACKUP**. Provide a name for the restore, select a namespace for the restore and select the "Restore Flags". Click on **Next** to proceed.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-5.png" width="1200"/>
+7. **Advanced** tab provides options for "Tranform Components", "Exclude Resources" and "Hook Configuration". These are not selected in this example. Click **Save** to start the restore.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-6.png" width="1200"/>
+8. This page shows the confirmation that restore is started and **STATUS LOG** is displayed. Once completed, this displays the status. In case of failure, this displays the stage where the failure occurs with specific errors.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-7.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/immutable-restore-8.png" width="1200"/>
+   
+9. This completes the restore of an immutable backup. All the application are restored to the selected namespace on the cluster.
 
 ## How to recover backups if deleted from S3 bucket
+If the backup objects are accidently deleted from the Amazon S3 bucket, these can be recovered as the bucket has object locking and version enabled. Steps to recover the backups if it is deleted from S3 bucket 
+
+1. Navigate to **Amazon S3 - Buckets** and click the immutable bucket. Navigate to the objects inside the bucket and find the **location** of the backup as noted in the step above. Click **Delete** to imitate deletion of the backup folder.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-1.png" width="1200"/>
+2. Provide confirmations for the deletion and click **Delete objects**.   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-2.png" width="1200"/>
+3. This provides confirmation that objects are deleted.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-3.png" width="1200"/>
+4. Navigate back to the Amazon S3 bucket and enable **Show versions**.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-4.png" width="1200"/>
+5. Search the backup folder inside the bucket and go inside the folder.   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-5.png" width="1200"/> 
+6. Inside the folder, **Delete marker** objects are listed. Delete these **Delete marker** objects to recover the backup objects.
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-6.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-7.png" width="1200"/>   
+   
+7. Navigate back to the bucket. It will show that the backup folder is now recovered and can be used for restore.
+
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-8.png" width="1200"/>
+   
+   <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/immutable-backup/S3-object-delete-9.png" width="1200"/>
