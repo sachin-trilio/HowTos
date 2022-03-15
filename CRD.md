@@ -81,7 +81,7 @@ A scheduling policy can be created to automate the capture of applications withi
 ### Retention Policy
 The retention policy enables users to define the number of backups to retain and the cadence to delete backups as per compliance requirements. The retention policy CR provides a simple YAML specification to define the number of backups to retain in terms of days, weeks, months, years, latest etc.
 
-### Steps to create Scheduling Policy
+### Steps to create Retention Policy
 1. Log in to the **Management Console** of _Triliovault for Kubernetes_. 
 2. Go to **Backup & Recovery** tab and click on **Policies**. Click on **Retention Policies** tab. It displays a list of pre-defined and user created retention policies. Click on **Create New**.
    <img src="https://github.com/sachin-trilio/HowTos/blob/main/media/CRD/Policies/policies-5.png" width="1200"/>
