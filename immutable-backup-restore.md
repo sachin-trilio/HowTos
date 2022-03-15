@@ -56,7 +56,7 @@ In order for TrilioVault to support immutability the S3 bucket must have:
    apiVersion: v1
    kind: Secret
    metadata:
-     name: demo-s3-secret
+     name: tvk-immutable-secret
    type: Opaque
    stringData:
      accessKey: AKIAS5B35DGFSTY7T55D
