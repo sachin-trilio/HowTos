@@ -4,11 +4,11 @@
 
 - [Introduction](#Introduction)
   - [Prerequisites](#Prerequisites)
-- [Install RHACM](#Install RHACM)
-- [Deploy Triliovault for Kubernetes (TVK) policies](#Deploy Triliovault for Kubernetes (TVK) policies)
-  - [Install TVK using policy](#Install TVK using policy)
-  - [Protect a namespace in the cluster using the TVK backup creation policy](#Protect a namespace in the cluster using the TVK backup creation policy)
-  - [Protect multiple namespaces in any cluster using the TVK backup creation policy](#Protect multiple namespaces in any cluster using the TVK backup creation policy)
+- [Install RHACM](#Install_RHACM)
+- [Deploy Triliovault for Kubernetes (TVK) policies](#Deploy_Triliovault_for_Kubernetes_TVK_policies)
+  - [Install TVK using policy](#Install_TVK_using_policy)
+  - [Protect a namespace in the cluster using the TVK backup creation policy](#Protect_a_namespace_in_the_cluster_using_the_TVK_backup_creation_policy)
+  - [Protect multiple namespaces in any cluster using the TVK backup creation policy](#Protect_multiple_namespaces_in_any_cluster_using_the_TVK_backup_creation_policy)
 - [Conclusion](#Conclusion)
 - [References](#References)
 
@@ -40,6 +40,7 @@ Install Red Hat Advanced Cluster Management (RHACM >= 2.5) as outlined in the ht
 In RHACM Policy Collection under the community section, the following 3 TVK policies are available.
 
 | Policy | Description | Prerequisites |
+| ------ | ----------- | ------------- |
 | Policy to install Triliovault for Kubernetes Operator | Use this policy to install Triliovault for Kubernetes Operator and a trial license on Openshift clusters with label "protected-by=triliovault" | Requires OpenShift 4.8 or later. Needs CSI Driver with snapshot capabilities, storageClass and volumeSnapshotClass. For more information, refer documentation |
 | Policy to create namespace based backup using Triliovault for Kubernetes | Use this policy to create namespace based backup using Triliovault for Kubernetes on Openshift clusters with label "protected-by=triliovault" | Requires OpenShift 4.8 or later. Note: Triliovault for Kubernetes must be installed to use this policy. See the Policy to install Triliovault for Kubernetes Operator. On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace “default” where this policy is created (details given in the policy). For more information, refer documentation |
 | Policy to create namespace based backup using Triliovault for Kubernetes and kyverno template | Use this policy to create namespace based backup using Triliovault for Kubernetes and kyverno template on Openshift clusters with label "protected-by=triliovault". It creates backup of the namespaces having a label "protected-by=tvk-ns-backup" | Requires OpenShift 4.8 or later. Note: Kyverno controller must be installed to use the kyverno policy. See the Policy to install Kyverno. Triliovault for Kubernetes must be installed to use this policy. See the Policy to install Triliovault for Kubernetes Operator. On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace “default” where this policy is created (details given in the policy). For more information, refer documentation |
@@ -57,13 +58,13 @@ An important note here: One of the clusters was prepared with the label protecte
 This RHACM has not yet created any TVK policies, so let’s start with our first example.
 
 To start, let’s go to the bottom left group on the RHACM start page, and we’ll see the UI for Governance and risk (also called: The policy engine):
-<image-20220927-104347.png>
+(./image-20220927-104347.png)
 
 We click on “Create Policy”:
-<image-20220927-104532.png>
+(/image-20220927-104532.png)
 
 By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
-<image-20220927-104911.png>
+(/image-20220927-104911.png)
   
 In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels vendor=OpenShift and protected-by=triliovault. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace or any other namespace available on the hub cluster. The user can create some specific policy-engine namespaces in advance to be able to group them more efficiently. Also, we will not yet select the “Enforce if supported” button.
 
