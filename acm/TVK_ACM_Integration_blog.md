@@ -54,23 +54,27 @@ For demo purposes, there are two OCP clusters; one of them runs RHACM and is the
 
 ![](/acm/image-20220927-104207.png)
 
-An important note here: One of the clusters was prepared with the label protected-by=triliovault
+An important note here: One of the clusters was prepared with the label `protected-by=triliovault`
 
 This RHACM has not yet created any TVK policies, so let’s start with our first example.
 
 To start, let’s go to the bottom left group on the RHACM start page, and we’ll see the UI for Governance and risk (also called: The policy engine):
-(./image-20220927-104347.png)
+
+!(/acm/image-20220927-104347.png)
 
 We click on “Create Policy”:
-(/image-20220927-104532.png)
+
+!(/acm/image-20220927-104532.png)
 
 By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
-(/image-20220927-104911.png)
   
-In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels vendor=OpenShift and protected-by=triliovault. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace or any other namespace available on the hub cluster. The user can create some specific policy-engine namespaces in advance to be able to group them more efficiently. Also, we will not yet select the “Enforce if supported” button.
+!(/acm/image-20220927-104911.png)
+  
+In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels `vendor=OpenShift` and `protected-by=triliovault`. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace or any other namespace available on the hub cluster. The user can create some specific policy-engine namespaces in advance to be able to group them more efficiently. Also, we will not yet select the “Enforce if supported” button.
 
 Before we create the policy, let’s again check the list of installed operators on the cluster itself in its OpenShift UI:
-<image-20220927-105207.png> 
+  
+!(/acm/image-20220927-105207.png)
   
 We see that TVK is not installed.
 
@@ -78,10 +82,12 @@ So, let’s create the policy by clicking on the “Submit” button in the “C
 
 We are forwarded to a screen, which after a couple of moments, looks like this:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-105419.png)
+!(/acm/image-20220927-105419.png)
+  
 We see that RHACM detected that the policy shall be used on 1 cluster and that the policy is NOT adhered to in this cluster. Therefore, we have one policy violation. We can click on the policy name to get a more detailed overview, and there we select the “Results” Tab:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-105553.png)
+!(/acm/image-20220927-105553.png)
+  
 We see: The required operator elements are missing, which is why the policy failed.
 
 If we go back to the policy overview - Policies, where the policy is listed, we see three dots at the end of the line. If we click on those, we get a popup box in which we can select an action to the policy:
