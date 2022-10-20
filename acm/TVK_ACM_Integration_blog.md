@@ -3,14 +3,14 @@
 ## Table of Contents
 
 - [Introduction](#Introduction)
--- [Prerequisites](#Prerequisites)
+  - [Prerequisites](#Prerequisites)
 - [Install RHACM](#Install RHACM)
 - [Deploy Triliovault for Kubernetes (TVK) policies](#Deploy Triliovault for Kubernetes (TVK) policies)
--- [Install TVK using policy]
--- [Protect a namespace in the cluster using the TVK backup creation policy]
--- [Protect multiple namespaces in any cluster using the TVK backup creation policy]
-- [Conclusion]
-- [References]
+  - [Install TVK using policy](#Install TVK using policy)
+  - [Protect a namespace in the cluster using the TVK backup creation policy](#Protect a namespace in the cluster using the TVK backup creation policy)
+  - [Protect multiple namespaces in any cluster using the TVK backup creation policy](#Protect multiple namespaces in any cluster using the TVK backup creation policy)
+- [Conclusion](#Conclusion)
+- [References](#References)
 
 ## Introduction
 Organizations are moving towards Kubernetes as an operating environment, and protecting the data is paramount. It’s their top-most priority to protect the business-critical data and set up a business continuity plan in case of a disaster. A cloud native backup and DR solution is the need of the hour, and the answer is Triliovault for Kubernetes.
@@ -50,26 +50,26 @@ Let’s start with the policy to install Triliovault for Kubernetes (TVK).
 We are going to use the policy to install TVK. This policy installs the latest TVK operator on any “Openshift” cluster with a label protected-by=triliovault.
 
 For demo purposes, there are two OCP clusters; one of them runs RHACM and is the “hub” cluster. We can see that when we go to the “Cluster lifecycle” section of RHACM:
+<image-20220927-104207.png>
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > image-20220927-104207.png
 An important note here: One of the clusters was prepared with the label protected-by=triliovault
 
 This RHACM has not yet created any TVK policies, so let’s start with our first example.
 
 To start, let’s go to the bottom left group on the RHACM start page, and we’ll see the UI for Governance and risk (also called: The policy engine):
+<image-20220927-104347.png>
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > image-20220927-104347.png
 We click on “Create Policy”:
+<image-20220927-104532.png>
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > image-20220927-104532.png
 By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
-
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > image-20220927-104911.png
+<image-20220927-104911.png>
+  
 In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels vendor=OpenShift and protected-by=triliovault. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace or any other namespace available on the hub cluster. The user can create some specific policy-engine namespaces in advance to be able to group them more efficiently. Also, we will not yet select the “Enforce if supported” button.
 
 Before we create the policy, let’s again check the list of installed operators on the cluster itself in its OpenShift UI:
-
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > image-20220927-105207.png
+<image-20220927-105207.png> 
+  
 We see that TVK is not installed.
 
 So, let’s create the policy by clicking on the “Submit” button in the “Create policy” dialog in RHACM.
