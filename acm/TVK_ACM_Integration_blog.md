@@ -60,21 +60,21 @@ This RHACM has not yet created any TVK policies, so let’s start with our first
 
 To start, let’s go to the bottom left group on the RHACM start page, and we’ll see the UI for Governance and risk (also called: The policy engine):
 
-!(/acm/image-20220927-104347.png)
+![](/acm/image-20220927-104347.png)
 
 We click on “Create Policy”:
 
-!(/acm/image-20220927-104532.png)
+![](/acm/image-20220927-104532.png)
 
 By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
   
-!(/acm/image-20220927-104911.png)
+![](/acm/image-20220927-104911.png)
   
 In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels `vendor=OpenShift` and `protected-by=triliovault`. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace or any other namespace available on the hub cluster. The user can create some specific policy-engine namespaces in advance to be able to group them more efficiently. Also, we will not yet select the “Enforce if supported” button.
 
 Before we create the policy, let’s again check the list of installed operators on the cluster itself in its OpenShift UI:
   
-!(/acm/image-20220927-105207.png)
+![](/acm/image-20220927-105207.png)
   
 We see that TVK is not installed.
 
@@ -82,27 +82,31 @@ So, let’s create the policy by clicking on the “Submit” button in the “C
 
 We are forwarded to a screen, which after a couple of moments, looks like this:
 
-!(/acm/image-20220927-105419.png)
+![](/acm/image-20220927-105419.png)
   
 We see that RHACM detected that the policy shall be used on 1 cluster and that the policy is NOT adhered to in this cluster. Therefore, we have one policy violation. We can click on the policy name to get a more detailed overview, and there we select the “Results” Tab:
 
-!(/acm/image-20220927-105553.png)
+![](/acm/image-20220927-105553.png)
   
 We see: The required operator elements are missing, which is why the policy failed.
 
 If we go back to the policy overview - Policies, where the policy is listed, we see three dots at the end of the line. If we click on those, we get a popup box in which we can select an action to the policy:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-105724.png)
+![](/acm/image-20220927-105724.png)
+  
 Click "Enforce" to confirm that action in the next popup box.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-105952.png)
+![](/acm/image-20220927-105952.png)
+  
 It takes a few minutes for enforcement of the Policy. When we again check the details of the policy, we see:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-111254.png)
+![](/acm/image-20220927-111254.png)
+  
 And we can confirm in our cluster with the protected-by=triliovault label that the operator has been installed:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-111420.png)
-This concludes how to install Triliovault for Kubernetes (TVK) on the clusters managed by ACM. This policy will also protect the new clusters if those are Openshift clusters with a label protected-by=triliovault.
+![](/acm/image-20220927-111420.png)
+  
+This concludes how to install Triliovault for Kubernetes (TVK) on the clusters managed by ACM. This policy will also protect the new clusters if those are Openshift clusters with a label `protected-by=triliovault`.
 
 ### Protect a namespace in the cluster using the TVK backup creation policy
 Now that the TVK is installed and a trial license created (as seen in the previous policy), we can start using the TVK. To get started with TVK in our environment, please ensure that all prerequisites are fulfilled as listed in the section above. Once done, we need to perform the following steps.
@@ -158,37 +162,44 @@ data:
 EOF
 ```
   
-Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
+Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <^><ctrl>-a <ctrl>-c<^> in the GitHub Window, and a <^><ctrl>-a <ctrl>-v<^> in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-131018.png)
+![](/acm/image-20220927-131018.png)
 Let's quickly check the policy. As specified in the comments section, we need to replace the namespace “test” used in the policy with “mysql” for which we need to create the backup. It can be easily done in YAML-Edit Window in RHACM.
 
-In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels vendor=OpenShift and protected-by=triliovault. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace on the hub cluster.
+In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels `vendor=OpenShift` and `protected-by=triliovault`. This policy will be deployed on all “Openshift” clusters with user-defined label `protected-by=triliovault`. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace on the hub cluster.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-133113.png)
+![](/acm/image-20220927-133113.png)
+  
 Click “Submit” to create the policy.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-141624.png)
+![](/acm/image-20220927-141624.png)
+  
 We see that RHACM detected that the policy shall be used on 1 cluster and that the policy is NOT adhered to in this cluster. Therefore, we have one policy violation. We can click on the policy name to get a more detailed overview. If we go back to the policy overview - Policies, where the policy is listed, we see three dots at the end of the line. If we click on those, we get a popup box in which we can select an action “enforce” the policy:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-141855.png)
+![](/acm/image-20220927-141855.png)
+  
 Click " Enforce " to confirm that action in the next popup box.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220927-142020.png)
+![](/acm/image-20220927-142020.png)
+  
 It takes a few minutes for enforcement of the Policy. When we again check the details of the policy, we see:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220928-153124.png)
+![](/acm/image-20220928-153124.png)
+  
 As seen in the above screenshot, the policy created a secret that uses AWS S3 credentials, a target to store backup data in the specified S3 bucket, a BackupPlan with a daily backup schedule, and a first full backup of the namespace “mysql”. With this, the namespace “mysql” is protected, and a new backup will be taken daily.
 
 We can also log in to TVK UI (refer https://docs.trilio.io/kubernetes/management-console-ui/accessing-the-ui#openshift-environments on Openshift) and sign in via Openshift.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-074746.png)
+![](/acm/image-20220929-074746.png)
+  
 Backups created for namespace “mysql” can be seen using Triliovault management UI as below:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-075309.png)
-This concludes how to create a namespace-based backup using TVK policy on the Openshift clusters with a label protected-by=triliovault managed by ACM.
+![](/acm/image-20220929-075309.png)
+  
+This concludes how to create a namespace-based backup using TVK policy on the Openshift clusters with a label `protected-by=triliovault` managed by ACM.
 
-However, in this policy, we need to update the namespace's name to create the backup manually. Also, it is expected that the same namespace is present on all the Openshift clusters with a label protected-by=triliovault.
+However, in this policy, we need to update the namespace's name to create the backup manually. Also, it is expected that the same namespace is present on all the Openshift clusters with a label `protected-by=triliovault`.
 
 It would be desirable to have a policy that will start protecting any namespace on any Openshift clusters matching the placement rule managed by ACM. Let’s take a look at a policy that does exactly that.
 
@@ -233,31 +244,39 @@ EOF
 ```
 Let’s go to the Governance → Policies section in the ACM. As we can see, install-tvk policy has been created and is compliant. That means TVK is installed and has a valid license.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-083257.png)
-Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
+![](/acm/image-20220929-083257.png)
+  
+Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <^><ctrl>-a <ctrl>-c<^> in the GitHub Window, and a <^><ctrl>-a <ctrl>-v<^> in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-083731.png)
-In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels vendor=OpenShift and protected-by=triliovault. This policy will be deployed on all “Openshift” clusters with user-defined label protected-by=triliovault. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace on the hub cluster.
+![](/acm/image-20220929-083731.png)
+  
+In the last line of the policy code, in the “PlacementRule” section, we see that this policy should be used on all clusters with labels `vendor=OpenShift` and `protected-by=triliovault`. This policy will be deployed on all “Openshift” clusters with user-defined label `protected-by=triliovault`. Before we can press the “Create” button, we still need to select a namespace in which this policy shall be executed. This is for internal organization reasons only; it does NOT affect the results of the policy engine itself. So, on the left-hand side, we can select the “default” namespace on the hub cluster.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-084217.png)
+![](/acm/image-20220929-084217.png)
+  
 Click “Submit” to create the policy.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-084853.png)
+![](/acm/image-20220929-084853.png)
+  
 We see that RHACM detected that the policy shall be used on 1 cluster and that the policy is NOT adhered to in this cluster. Therefore, we have one policy violation. We can click on the policy name to get a more detailed overview. If we go back to the policy overview - Policies, where the policy is listed, we see three dots at the end of the line. If we click on those, we get a popup box in which we can select an action “enforce” the policy:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-085039.png)
+![](/acm/image-20220929-085039.png)
+  
 Click " Enforce " to confirm that action in the next popup box.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-085114.png)
+![](/acm/image-20220929-085114.png)
+  
 It takes a few minutes for enforcement of the Policy. When we again check the details of the policy, we see:
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-085746.png)
-The above screenshot shows that the policy created a Kyverno policy on the target cluster. This Kyverno policy monitors all the namespaces and creates a target to store backup data in the specified S3 bucket, a BackupPlan with a daily backup schedule, and a first full backup for all the namespaces with label protected-by=tvk-ns-backup. This is also applied to any new namespace created with the same label.
+![](/acm/image-20220929-085746.png)
+  
+The above screenshot shows that the policy created a Kyverno policy on the target cluster. This Kyverno policy monitors all the namespaces and creates a target to store backup data in the specified S3 bucket, a BackupPlan with a daily backup schedule, and a first full backup for all the namespaces with label `protected-by=tvk-ns-backup`. This is also applied to any new namespace created with the same label.
 
 Let’s log in to TVK UI (refer https://docs.trilio.io/kubernetes/management-console-ui/accessing-the-ui#openshift-environments on Openshift) and sign in via Openshift.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-090122.png)
-As seen in the above screenshot, there are no backups in the “Monitoring” → Cluster Dashboard in TVK UI. This is because there are no namespaces in the target cluster with the label protected-by=tvk-ns-backup.
+![](/acm/image-20220929-090122.png)
+  
+As seen in the above screenshot, there are no backups in the “Monitoring” → Cluster Dashboard in TVK UI. This is because there are no namespaces in the target cluster with the label `protected-by=tvk-ns-backup`.
 
 For the demo, we created a namespace, “postgres” with the PostgreSQL application running.
 
@@ -273,8 +292,11 @@ service/postgres   NodePort   172.30.17.37   <none>        5432:30992/TCP   5m29
 NAME                             READY   AGE
 statefulset.apps/postgres-demo   2/2     5m29s
 #
-Let’s apply label protected-by=tvk-ns-backup to namespace “postgres”.
+```
+  
+Let’s apply label `protected-by=tvk-ns-backup` to namespace “postgres”.
 
+```
 # oc label ns postgres protected-by=tvk-ns-backup
 namespace/postgres labeled
 #
@@ -297,8 +319,9 @@ backup.triliovault.trilio.io/tvk-postgres-backup   tvk-postgres-backupplan   Ful
   
 Let’s check “Monitoring” → Cluster Dashboard in TVK UI. Now we can see a backup created for namespace “postgres”.
 
-TrilioVault for K8S > Deploying Triliovault For Kubernetes with Openshift ACM Policies > (image-20220929-112740.png)
-This concludes how to create a namespace-based backup using Kyverno-based TVK policy for all the namespaces with label protected-by=tvk-ns-backup on the Openshift clusters with a label protected-by=triliovault managed by ACM. It keeps existing as well as new namespaces protected. So just apply with label protected-by=tvk-ns-backup for any namespace to start protecting it.
+![](/acm/image-20220929-112740.png)
+  
+This concludes how to create a namespace-based backup using Kyverno-based TVK policy for all the namespaces with label `protected-by=tvk-ns-backup` on the Openshift clusters with a label `protected-by=triliovault` managed by ACM. It keeps existing as well as new namespaces protected. So just apply with label `protected-by=tvk-ns-backup` for any namespace to start protecting it.
 
 ## Conclusion
 TrilioVault for Kubernetes is a cloud-native, application-centric data protection platform designed to support the scale, performance, and mobility requirements of Kubernetes container environments across any public or hybrid cloud environment. It offers backup and recovery of the entire application, including data, metadata, and Kubernetes objects. It is protected and can be restored from any point-in-time.
