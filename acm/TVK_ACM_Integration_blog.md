@@ -31,24 +31,23 @@ Pre-requisites are as follows:
 - CSI Driver with snapshot capability - https://docs.trilio.io/kubernetes/appendix/csi-drivers
 - VolumeSnapshot CRDs - https://docs.trilio.io/kubernetes/appendix/csi-drivers/installing-volumesnapshot-crds
 
-## Install RHACM
+## Install_RHACM
 Red Hat Advanced Cluster Management can be used to comply with enterprise and industry standards for aspects such as security and regulatory compliance, resiliency, and software engineering. Deviation from defined values for such standards represents a configuration drift, which can be detected using the built-in configuration policy controller of RHACM.
 
 Install Red Hat Advanced Cluster Management (RHACM >= 2.5) as outlined in the https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.6/html/install/index.
 
-## Deploy Triliovault for Kubernetes (TVK) policies
+## Deploy_Triliovault_for_Kubernetes_TVK_policies
 In RHACM Policy Collection under the community section, the following 3 TVK policies are available.
 
 | Policy | Description | Prerequisites |
 | ------ | ----------- | ------------- |
-[Policy to install Triliovault for Kubernetes Operator](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml) | Use this policy to install Triliovault for Kubernetes Operator and a trial license on Openshift clusters with label "protected-by=triliovault" | Requires OpenShift 4.8 or later. Needs CSI Driver with snapshot capabilities, storageClass and volumeSnapshotClass. For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
-[Policy to create namespace based backup using Triliovault for Kubernetes](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-create-ns-backup-triliovault-for-kubernetes.yaml) | Use this policy to create namespace based backup using Triliovault for Kubernetes on Openshift clusters with label "protected-by=triliovault" | Requires OpenShift 4.8 or later. **Note**: Triliovault for Kubernetes must be installed to use this policy. See the [Policy to install Triliovault for Kubernetes Operator](./CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml). On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace where this policy is created (details given in the policy). For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
-[Policy to create namespace based backup using Triliovault for Kubernetes and kyverno template](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-create-ns-backup-triliovault-for-kubernetes-templatized.yaml) | Use this policy to create namespace based backup using Triliovault for Kubernetes and kyverno template on Openshift clusters with label "protected-by=triliovault". It creates backup of the namespaces having a label "protected-by=tvk-ns-backup" | Requires OpenShift 4.8 or later. **Note**: Kyverno controller must be installed to use the kyverno policy. See the [Policy to install Kyverno](./CM-Configuration-Management/policy-install-kyverno.yaml). Triliovault for Kubernetes must be installed to use this policy. See the [Policy to install Triliovault for Kubernetes Operator](./CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml). On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace where this policy is created (details given in the policy). For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
-[policy-pod-placement](./CM-Configuration-Management/policy-pod-placement.yaml) | Ensures that a pod exists as specified. This policy uses the `Placement` kind rather than a `PlacementRule` to select managed clusters to deploy to. |
+[Policy to install Triliovault for Kubernetes Operator](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml) | Use this policy to install Triliovault for Kubernetes Operator and a trial license on Openshift clusters with label `protected-by=triliovault` | Requires OpenShift 4.8 or later. Needs CSI Driver with snapshot capabilities, storageClass and volumeSnapshotClass. For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
+[Policy to create namespace based backup using Triliovault for Kubernetes](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-create-ns-backup-triliovault-for-kubernetes.yaml) | Use this policy to create namespace based backup using Triliovault for Kubernetes on Openshift clusters with label `protected-by=triliovault` | Requires OpenShift 4.8 or later. **Note**: Triliovault for Kubernetes must be installed to use this policy. See the [Policy to install Triliovault for Kubernetes Operator](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml). On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace where this policy is created (details given in the policy). For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
+[Policy to create namespace based backup using Triliovault for Kubernetes and kyverno template](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-create-ns-backup-triliovault-for-kubernetes-templatized.yaml) | Use this policy to create namespace based backup using Triliovault for Kubernetes and kyverno template on Openshift clusters with label `protected-by=triliovault`. It creates backup of the namespaces having a label `protected-by=tvk-ns-backup` | Requires OpenShift 4.8 or later. **Note**: Kyverno controller must be installed to use the kyverno policy. See the [Policy to install Kyverno](./CM-Configuration-Management/policy-install-kyverno.yaml). Triliovault for Kubernetes must be installed to use this policy. See the [Policy to install Triliovault for Kubernetes Operator](https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-install-triliovault-for-kubernetes.yaml). On the hub cluster, create a secret "aws-s3-secret" with S3 credentials and a configmap "aws-s3-configmap" with S3 bucket name, region name & thresholdCapacity in the namespace where this policy is created (details given in the policy). For more information, refer [documentation](https://docs.trilio.io/kubernetes/getting-started-3/getting-started#prerequisites-for-tvk)
 
 Let’s start with the policy to install Triliovault for Kubernetes (TVK).
 
-### Install TVK using policy
+### Install_TVK_using_policy
 We are going to use the policy to install TVK. This policy installs the latest TVK operator on any “Openshift” cluster with a label protected-by=triliovault.
 
 For demo purposes, there are two OCP clusters; one of them runs RHACM and is the “hub” cluster. We can see that when we go to the “Cluster lifecycle” section of RHACM:
@@ -67,7 +66,7 @@ We click on “Create Policy”:
 
 ![](/acm/image-20220927-104532.png)
 
-By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <ctrl>-a <ctrl>-c in the GitHub Window, and a <ctrl>-a <ctrl>-v in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
+By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <^><ctrl>-a <ctrl>-c<^> in the GitHub Window, and a <^><ctrl>-a <ctrl>-v<^> in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
   
 ![](/acm/image-20220927-104911.png)
   
@@ -109,7 +108,7 @@ And we can confirm in our cluster with the protected-by=triliovault label that t
   
 This concludes how to install Triliovault for Kubernetes (TVK) on the clusters managed by ACM. This policy will also protect the new clusters if those are Openshift clusters with a label `protected-by=triliovault`.
 
-### Protect a namespace in the cluster using the TVK backup creation policy
+### Protect_a_namespace_in_the_cluster_using_the_TVK_backup_creation_policy
 Now that the TVK is installed and a trial license created (as seen in the previous policy), we can start using the TVK. To get started with TVK in our environment, please ensure that all prerequisites are fulfilled as listed in the section above. Once done, we need to perform the following steps.
 
 - Ceate a TVK Target - Location where backups will be stored.
@@ -204,8 +203,8 @@ However, in this policy, we need to update the namespace's name to create the ba
 
 It would be desirable to have a policy that will start protecting any namespace on any Openshift clusters matching the placement rule managed by ACM. Let’s take a look at a policy that does exactly that.
 
-### Protect multiple namespaces in any cluster using the TVK backup creation policy
-Before we begin, please ensure that all prerequisites are fulfilled as listed in the section above. Policy to create namespace based backup using Triliovault for Kubernetes and Kyverno template creates a backup of the namespaces having a label "protected-by=tvk-ns-backup" on all the Openshift clusters with label "protected-by=triliovault.” In addition to installing TVK, the Kyverno controller must be installed to use the kyverno policy. See the Policy to install Kyverno.
+### Protect_multiple_namespaces_in_any_cluster_using_the_TVK_backup_creation_policy
+Before we begin, please ensure that all prerequisites are fulfilled as listed in the section above. Policy to create namespace based backup using Triliovault for Kubernetes and Kyverno template creates a backup of the namespaces having a label `protected-by=tvk-ns-backup` on all the Openshift clusters with label `protected-by=triliovault`. In addition to installing TVK, the Kyverno controller must be installed to use the kyverno policy. See the Policy to install Kyverno.
 
 NOTE - Please grant Kyverno's service account additional privileges for the namespaces.
 
