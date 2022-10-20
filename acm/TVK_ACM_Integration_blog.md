@@ -52,7 +52,7 @@ We are going to use the policy to install TVK. This policy installs the latest T
 
 For demo purposes, there are two OCP clusters; one of them runs RHACM and is the “hub” cluster. We can see that when we go to the “Cluster lifecycle” section of RHACM:
 
-![text](/image-20220927-104207.png)
+![](/acm/image-20220927-104207.png)
 
 An important note here: One of the clusters was prepared with the label protected-by=triliovault
 
