@@ -66,7 +66,7 @@ We click on “Create Policy”:
 
 ![](/acm/image-20220927-104532.png)
 
-By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <^> <ctrl>-a <ctrl>-c <^> in the GitHub Window, and a <^> <ctrl>-a <ctrl>-v <^> in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
+By default, we see the YAML code on the right side, which makes it also easy for us to import the above-mentioned first policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a `<ctrl>-a <ctrl>-c` in the GitHub Window, and a `<ctrl>-a <ctrl>-v` in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
   
 ![](/acm/image-20220927-104911.png)
   
@@ -162,7 +162,7 @@ data:
 EOF
 ```
   
-Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a <^> <ctrl>-a <ctrl>-c <^> in the GitHub Window, and a <^> <ctrl>-a <ctrl>-v <^> in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
+Now, let’s click on “Create Policy.” By default, we see the YAML code on the right side, which makes it also easy for us to import the policy. Let’s go to the GitHub page, click on “Raw” for the policy YAML, and just copy the YAML code from GitHub into the YAML section of RHACM. Note: Before pasting into RHACM, clear the YAML section there. Typically you do a `<ctrl>-a <ctrl>-c` in the GitHub Window, and a `<ctrl>-a <ctrl>-v` in the RHACM window. After you paste the policy into that YAML-Edit Window in RHACM, you should have the following:
 
 ![](/acm/image-20220927-131018.png)
 Let's quickly check the policy. As specified in the comments section, we need to replace the namespace “test” used in the policy with “mysql” for which we need to create the backup. It can be easily done in YAML-Edit Window in RHACM.
