@@ -51,7 +51,7 @@ Let’s start with the policy to install Triliovault for Kubernetes (TVK).
 We are going to use the policy to install TVK. This policy installs the latest TVK operator on any “Openshift” cluster with a label protected-by=triliovault.
 
 For demo purposes, there are two OCP clusters; one of them runs RHACM and is the “hub” cluster. We can see that when we go to the “Cluster lifecycle” section of RHACM:
-(../image-20220927-104207.png)
+!(/image-20220927-104207.png)
 
 An important note here: One of the clusters was prepared with the label protected-by=triliovault
 
